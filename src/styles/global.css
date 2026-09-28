@@ -1,0 +1,192 @@
+@import "tailwindcss";
+@plugin '@tailwindcss/typography';
+
+@theme {
+  /* Violet profond — fond principal (header, sections, footer) */
+  --color-ink: #2c1d49;
+  --color-ink-light: #352357;
+  --color-ink-dark: #241a3a;
+
+  /* Or / caramel — accents, CTA */
+  --color-gold: #cd9662;
+  --color-gold-light: #e0b084;
+  --color-gold-dark: #b47d4a;
+
+  /* Parchemin crème — fonds clairs, hero */
+  --color-parchment: #efe3c6;
+  --color-parchment-light: #f7f0dc;
+  --color-parchment-dark: #e6d6b2;
+
+  --font-display: "Sacred Bridge", serif;
+  --font-display-rough: "Sacred Bridge Rough", serif;
+  --font-script: "Jane Austen", cursive;
+  --font-body: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@font-face {
+  font-family: "Sacred Bridge";
+  src: url("/fonts/SacredBridge-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sacred Bridge Rough";
+  src: url("/fonts/SacredBridge-Rough.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Jane Austen";
+  src: url("/fonts/JaneAust.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-v21-latin-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-v21-latin-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-v21-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-v21-latin-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-v20-latin-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-v20-latin-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-v20-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-parchment-light text-ink font-body font-medium text-lg leading-relaxed;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    @apply font-display;
+    letter-spacing: 0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid #cd9662;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .acast-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 9999px;
+    background: rgba(247, 240, 220, 0.2);
+    cursor: pointer;
+  }
+  .acast-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+    background: var(--color-gold);
+    cursor: pointer;
+  }
+  .acast-range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: none;
+    border-radius: 9999px;
+    background: var(--color-gold);
+    cursor: pointer;
+  }
+  .acast-range::-moz-range-progress {
+    background: var(--color-gold);
+    height: 6px;
+    border-radius: 9999px;
+  }
+}

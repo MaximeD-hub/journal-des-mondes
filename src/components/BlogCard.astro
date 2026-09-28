@@ -1,0 +1,29 @@
+---
+import PlaceholderArt from './PlaceholderArt.astro';
+
+interface Props {
+  title: string;
+  excerpt: string;
+  href: string;
+  tag?: string;
+  coverImage?: string;
+  style?: string;
+}
+
+const { title, excerpt, href, tag, coverImage, style } = Astro.props;
+---
+
+<a href={href} data-reveal class="group flex h-full flex-col overflow-hidden rounded-lg bg-ink-light transition-transform duration-200 hover:-translate-y-1" style={style}>
+  {coverImage ? (
+    <img src={coverImage} alt="" class="aspect-[16/10] w-full shrink-0 object-cover" loading="lazy" />
+  ) : (
+    <PlaceholderArt variant="parchment" class="aspect-[16/10] w-full shrink-0" />
+  )}
+  <div class="flex flex-1 flex-col gap-2 p-5">
+    {tag && (
+      <span class="font-sans text-xs font-semibold uppercase tracking-wider text-gold">{tag}</span>
+    )}
+    <h3 class="line-clamp-2 min-h-[3.5rem] font-display text-xl text-parchment-light group-hover:text-gold">{title}</h3>
+    <p class="line-clamp-3 min-h-[3.75rem] font-body text-sm text-parchment-light/70">{excerpt}</p>
+  </div>
+</a>

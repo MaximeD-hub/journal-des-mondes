@@ -1,0 +1,60 @@
+---
+interface Props {
+  trackClass?: string;
+}
+
+const { trackClass = '' } = Astro.props;
+---
+
+<div class="relative">
+  <button
+    type="button"
+    class="carousel-prev absolute left-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink text-parchment-light shadow-md transition duration-200 hover:scale-110 active:scale-95 hover:bg-ink-light disabled:pointer-events-none disabled:opacity-0"
+    aria-label="Défiler vers la gauche"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <div class:list={['carousel-track no-scrollbar flex overflow-x-auto scroll-smooth', trackClass]}>
+    <slot />
+  </div>
+
+  <button
+    type="button"
+    class="carousel-next absolute right-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink text-parchment-light shadow-md transition duration-200 hover:scale-110 active:scale-95 hover:bg-ink-light disabled:pointer-events-none disabled:opacity-0"
+    aria-label="Défiler vers la droite"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>
+
+<script>
+  function setupCarousel(track: HTMLElement) {
+    const wrapper = track.parentElement;
+    const prevBtn = wrapper?.querySelector<HTMLButtonElement>('.carousel-prev');
+    const nextBtn = wrapper?.querySelector<HTMLButtonElement>('.carousel-next');
+    if (!prevBtn || !nextBtn) return;
+
+    function updateButtons() {
+      prevBtn!.disabled = track.scrollLeft <= 4;
+      nextBtn!.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -track.clientWidth * 0.8, behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: track.clientWidth * 0.8, behavior: 'smooth' });
+    });
+
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  }
+
+  document.querySelectorAll<HTMLElement>('.carousel-track').forEach(setupCarousel);
+</script>

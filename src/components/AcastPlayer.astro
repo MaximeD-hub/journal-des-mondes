@@ -1,0 +1,200 @@
+---
+interface Props {
+  embedUrl?: string;
+  title: string;
+}
+
+const { embedUrl, title } = Astro.props;
+---
+
+{embedUrl ? (
+  <div class="acast-player relative flex items-center gap-3 rounded-lg bg-ink p-4 sm:gap-4 sm:p-5" data-embed-url={embedUrl}>
+    <button
+      type="button"
+      class="acast-toggle flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold text-ink-dark transition duration-200 hover:scale-105 hover:bg-gold-light active:scale-95"
+      aria-label="Lecture"
+    >
+      <svg class="acast-icon-play h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      <svg class="acast-icon-pause hidden h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      class="acast-seek-back hidden shrink-0 font-sans text-xs font-semibold text-parchment-light/70 transition-colors hover:text-gold sm:block"
+      aria-label="Reculer de 15 secondes"
+    >
+      −15s
+    </button>
+
+    <div class="flex-1">
+      <input
+        type="range"
+        class="acast-range"
+        min="0"
+        max="100"
+        value="0"
+        step="0.1"
+        aria-label={`Progression de la lecture — ${title}`}
+      />
+      <div class="mt-1.5 flex justify-between font-sans text-xs text-parchment-light/60">
+        <span class="acast-current-time">0:00</span>
+        <span class="acast-duration">--:--</span>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="acast-seek-forward hidden shrink-0 font-sans text-xs font-semibold text-parchment-light/70 transition-colors hover:text-gold sm:block"
+      aria-label="Avancer de 15 secondes"
+    >
+      +15s
+    </button>
+
+    <iframe
+      class="acast-iframe absolute h-px w-px opacity-0"
+      src={embedUrl}
+      allow="autoplay"
+      title={`Lecteur Acast — ${title}`}
+      loading="lazy"
+    ></iframe>
+  </div>
+) : (
+  <div class="flex h-32 w-full items-center justify-center rounded-lg border border-dashed border-ink/20 font-sans text-sm text-ink/50">
+    Lecteur Acast à venir
+  </div>
+)}
+
+<script>
+  function formatTime(totalSeconds: number): string {
+    if (!isFinite(totalSeconds) || totalSeconds < 0) return '0:00';
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = Math.floor(totalSeconds % 60);
+    const mm = h > 0 ? String(m).padStart(2, '0') : String(m);
+    const ss = String(s).padStart(2, '0');
+    return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
+  }
+
+  function setupAcastPlayer(root: HTMLElement) {
+    if (root.dataset.playerReady === 'true') return;
+    root.dataset.playerReady = 'true';
+
+    const iframe = root.querySelector<HTMLIFrameElement>('.acast-iframe');
+    const toggleBtn = root.querySelector<HTMLButtonElement>('.acast-toggle');
+    const iconPlay = root.querySelector<SVGElement>('.acast-icon-play');
+    const iconPause = root.querySelector<SVGElement>('.acast-icon-pause');
+    const seekBackBtn = root.querySelector<HTMLButtonElement>('.acast-seek-back');
+    const seekForwardBtn = root.querySelector<HTMLButtonElement>('.acast-seek-forward');
+    const range = root.querySelector<HTMLInputElement>('.acast-range');
+    const currentTimeEl = root.querySelector<HTMLElement>('.acast-current-time');
+    const durationEl = root.querySelector<HTMLElement>('.acast-duration');
+
+    if (!iframe || !toggleBtn || !range) return;
+
+    let isPlaying = false;
+    let duration = 0;
+    let userIsSeeking = false;
+    let progressTimer: ReturnType<typeof setInterval> | null = null;
+
+    function send(eventName: string, data?: Record<string, unknown>) {
+      iframe!.contentWindow?.postMessage(JSON.stringify({ eventName, data: data ?? {} }), '*');
+    }
+
+    function updatePlayIcon() {
+      iconPlay?.classList.toggle('hidden', isPlaying);
+      iconPause?.classList.toggle('hidden', !isPlaying);
+      toggleBtn!.setAttribute('aria-label', isPlaying ? 'Pause' : 'Lecture');
+    }
+
+    function startProgressPolling() {
+      stopProgressPolling();
+      progressTimer = setInterval(() => send('postmessage:get:progress'), 500);
+    }
+
+    function stopProgressPolling() {
+      if (progressTimer) {
+        clearInterval(progressTimer);
+        progressTimer = null;
+      }
+    }
+
+    function requestDuration(attempt = 0) {
+      send('postmessage:get:duration');
+      if (attempt < 8) {
+        setTimeout(() => {
+          if (!duration) requestDuration(attempt + 1);
+        }, 1000);
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => send('postmessage:do:toggle'));
+    seekBackBtn?.addEventListener('click', () => send('postmessage:do:seekback'));
+    seekForwardBtn?.addEventListener('click', () => send('postmessage:do:seekforward'));
+
+    range.addEventListener('pointerdown', () => { userIsSeeking = true; });
+    range.addEventListener('change', () => {
+      const position = (parseFloat(range.value) / 100) * duration;
+      send('postmessage:do:seek', { position });
+      userIsSeeking = false;
+    });
+    range.addEventListener('input', () => {
+      if (currentTimeEl && duration) {
+        currentTimeEl.textContent = formatTime((parseFloat(range.value) / 100) * duration);
+      }
+    });
+
+    window.addEventListener('message', (event) => {
+      if (event.source !== iframe!.contentWindow) return;
+      let parsed: { eventName?: string; data?: any };
+      try {
+        parsed = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+      } catch {
+        return;
+      }
+      if (!parsed || typeof parsed !== 'object') return;
+      const { eventName, data } = parsed;
+
+      // Décommente la ligne suivante si un comportement ne correspond pas
+      // à ce qui est décrit plus bas, pour voir la vraie forme des messages :
+      console.log('Acast message:', parsed);
+
+      if (eventName === 'postmessage:on:play' || (data && data.isPlaying === true)) {
+        isPlaying = true;
+        updatePlayIcon();
+        startProgressPolling();
+      } else if (eventName === 'postmessage:on:pause' || (data && data.isPlaying === false)) {
+        isPlaying = false;
+        updatePlayIcon();
+        stopProgressPolling();
+      } else if (eventName === 'postmessage:on:load') {
+        requestDuration();
+      }
+
+      if (data && typeof data.duration === 'number' && data.duration > 0) {
+        duration = data.duration;
+        if (durationEl) durationEl.textContent = formatTime(duration);
+      }
+
+      if (data && typeof data.progress === 'number' && !userIsSeeking && duration) {
+        const pct = Math.min(100, (data.progress / duration) * 100);
+        range.value = String(pct);
+        if (currentTimeEl) currentTimeEl.textContent = formatTime(data.progress);
+      }
+
+      if (eventName === 'postmessage:on:seek' && typeof data?.position === 'number') {
+        if (currentTimeEl) currentTimeEl.textContent = formatTime(data.position);
+        if (duration) range.value = String((data.position / duration) * 100);
+      }
+    });
+
+    iframe.addEventListener('load', () => requestDuration());
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('.acast-player').forEach(setupAcastPlayer);
+  });
+</script>

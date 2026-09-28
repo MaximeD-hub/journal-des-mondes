@@ -1,0 +1,27 @@
+---
+interface Props {
+  variant?: 'gold' | 'ink' | 'parchment';
+  class?: string;
+}
+
+const { variant = 'gold', class: className = '' } = Astro.props;
+
+const gradients: Record<string, string> = {
+  gold: 'from-gold-dark via-gold to-gold-light',
+  ink: 'from-ink-dark via-ink to-ink-light',
+  parchment: 'from-parchment-dark via-parchment to-parchment-light',
+};
+
+const iconColor: Record<string, string> = {
+  gold: 'text-ink-dark/25',
+  ink: 'text-gold/20',
+  parchment: 'text-ink/15',
+};
+---
+
+<div class={`relative flex items-center justify-center overflow-hidden bg-gradient-to-br ${gradients[variant]} ${className}`}>
+  <svg viewBox="0 0 100 100" class={`h-1/2 w-1/2 ${iconColor[variant]}`} fill="none" stroke="currentColor" stroke-width="2.5">
+    <polygon points="50,6 90,28 90,72 50,94 10,72 10,28" stroke-linejoin="round" />
+    <path d="M50 6 L50 94 M10 28 L90 72 M90 28 L10 72" stroke-linejoin="round" />
+  </svg>
+</div>

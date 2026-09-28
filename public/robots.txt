@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /admin-jdm-2026/
+
+Sitemap: https://journaldesmondes.fr/sitemap-index.xml

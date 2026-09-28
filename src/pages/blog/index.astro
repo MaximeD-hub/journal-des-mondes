@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const tags = ['JDR', 'Podcast', 'Léonia', 'Event'];
+---
+
+<BaseLayout title="Blog" description="Actualités du podcast et de l'univers du jeu de rôle.">
+  <section class="relative flex min-h-[320px] flex-col items-center justify-center bg-ink px-5 py-12 text-center sm:min-h-[400px] sm:px-8">
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/textures/parchment.jpg');"></div>
+  <div class="relative mx-auto max-w-2xl">
+    <h1 class="font-display text-3xl text-ink sm:text-4xl">Blog</h1>
+    <p class="mt-3 font-body text-ink/100">Actualités podcast et JDR.</p>
+  </div>
+
+  <div class="relative mx-auto mt-8 flex max-w-3xl flex-col items-center gap-5">
+    <div class="flex flex-wrap justify-center gap-2" id="tag-filters">
+      <button
+        type="button"
+        data-tag="all"
+        class="tag-btn is-active rounded-full border border-gold bg-gold px-4 py-1.5 font-sans text-sm font-medium text-ink-dark transition-colors"
+      >
+        Tous
+      </button>
+      {tags.map((tag) => (
+        <button
+          type="button"
+          data-tag={tag.toLowerCase()}
+          class="tag-btn rounded-full border border-ink/25 px-4 py-1.5 font-sans text-sm font-medium text-ink/70 transition-colors hover:border-gold hover:text-gold-dark"
+        >
+          {tag}
+        </button>
+      ))}
+    </div>
+
+    <div class="relative w-full max-w-sm">
+      <label for="blog-search" class="sr-only">Rechercher un article</label>
+      <input
+        id="blog-search"
+        type="search"
+        placeholder="Recherche"
+        class="w-full rounded-full border border-ink/20 bg-parchment-light px-5 py-2.5 font-sans text-sm text-ink placeholder:text-ink/40 focus:border-gold focus:outline-none"
+      />
+      <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7" />
+        <path stroke-linecap="round" d="m20 20-3.5-3.5" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+  <section class="bg-ink-dark px-5 py-12 sm:px-8 sm:py-16">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="post-grid">
+        {posts.map((post) => (
+          <div class="post-item" data-tag={post.data.tag.toLowerCase()} data-title={post.data.title.toLowerCase()}>
+            <BlogCard
+              title={post.data.title}
+              excerpt={post.data.excerpt}
+              href={`/blog/${post.id}`}
+              tag={post.data.tag}
+              coverImage={post.data.coverImage}
+              style={`transition-delay: ${(posts.indexOf(post) % 3) * 100}ms`}
+            />
+          </div>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <p class="text-center font-body text-parchment-light/60">Aucun article publié pour le moment.</p>
+      )}
+
+      <p id="no-results" class="hidden text-center font-body text-parchment-light/60">
+        Aucun résultat pour cette recherche.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('blog-search') as HTMLInputElement | null;
+  const tagButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.tag-btn'));
+  const postItems = Array.from(document.querySelectorAll<HTMLElement>('.post-item'));
+  const noResults = document.getElementById('no-results');
+
+  let activeTag = 'all';
+
+  function applyFilters() {
+    const query = (searchInput?.value ?? '').trim().toLowerCase();
+    let anyVisible = false;
+
+    postItems.forEach((item) => {
+      const matchesTag = activeTag === 'all' || item.dataset.tag === activeTag;
+      const matchesQuery = query === '' || (item.dataset.title ?? '').includes(query);
+      const visible = matchesTag && matchesQuery;
+      item.style.display = visible ? '' : 'none';
+      if (visible) anyVisible = true;
+    });
+
+    noResults?.classList.toggle('hidden', anyVisible);
+  }
+
+  tagButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeTag = btn.dataset.tag ?? 'all';
+      tagButtons.forEach((b) => {
+        const isActive = b === btn;
+        b.classList.toggle('is-active', isActive);
+        b.classList.toggle('bg-gold', isActive);
+        b.classList.toggle('border-gold', isActive);
+        b.classList.toggle('text-ink-dark', isActive);
+        b.classList.toggle('text-ink/70', !isActive);
+      });
+      applyFilters();
+    });
+  });
+
+  searchInput?.addEventListener('input', applyFilters);
+</script>

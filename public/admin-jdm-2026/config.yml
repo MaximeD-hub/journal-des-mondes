@@ -1,0 +1,44 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: editorial_workflow
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "episodes"
+    label: "Épisodes"
+    folder: "src/content/episodes"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    summary: "{{season}} — {{title}}"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Saison", name: "season", widget: "string", hint: "Ex: Warhammer, Bordelune, Léonia..." }
+      - { label: "Numéro d'épisode", name: "episodeNumber", widget: "number", value_type: "int" }
+      - { label: "Libellé chapitre", name: "chapterLabel", widget: "string", required: false, hint: "Ex: Chapitre 16 — laisser vide pour afficher « Épisode X »" }
+      - { label: "Date de publication", name: "publishDate", widget: "datetime" }
+      - { label: "Résumé (affiché sur les cartes)", name: "excerpt", widget: "text" }
+      - { label: "Lien du lecteur Acast", name: "acastEmbedUrl", widget: "string", required: false, hint: "URL d'embed Acast, ex: https://embed.acast.com/..." }
+      - { label: "Image de couverture", name: "coverImage", widget: "image", required: false }
+      - { label: "Brouillon (masqué du site)", name: "draft", widget: "boolean", default: false }
+      - { label: "Description complète", name: "body", widget: "markdown" }
+
+  - name: "blog"
+    label: "Articles de blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    summary: "{{tag}} — {{title}}"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Résumé (affiché sur les cartes)", name: "excerpt", widget: "text" }
+      - { label: "Tag", name: "tag", widget: "select", options: ["JDR", "Podcast", "Léonia", "Event"] }
+      - { label: "Date de publication", name: "publishDate", widget: "datetime" }
+      - { label: "Image de couverture", name: "coverImage", widget: "image", required: false }
+      - { label: "Brouillon (masqué du site)", name: "draft", widget: "boolean", default: false }
+      - { label: "Contenu de l'article", name: "body", widget: "markdown" }

@@ -1,0 +1,42 @@
+---
+import { FOOTER_SOMMAIRE, LISTEN_LINKS, SITE_NAME, SITE_TAGLINE, SOCIAL_LINKS } from '../consts';
+
+const year = new Date().getFullYear();
+
+const columns = [
+  { title: 'Sommaire', links: FOOTER_SOMMAIRE },
+  { title: 'Ecouter sur', links: LISTEN_LINKS },
+  { title: 'Réseaux', links: SOCIAL_LINKS },
+];
+---
+
+<footer class="bg-ink-dark text-parchment-light">
+  <div class="mx-auto max-w-7xl px-5 py-14 sm:px-8">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+      <div class="max-w-xs">
+        <img src="/images/logo-square.png" alt={SITE_NAME} class="h-50 w-auto" width="56" height="56" />
+        <p class="mt-4 font-body text-sm leading-relaxed text-parchment-light/70">
+          {SITE_TAGLINE}
+        </p>
+      </div>
+
+      {columns.map((col) => (
+        <div>
+          <h3 class="font-sans text-sm font-semibold text-gold">{col.title}</h3>
+          <ul class="mt-4 flex flex-col gap-2.5 font-sans text-sm text-parchment-light/80">
+            {col.links.map((link) => (
+              <li>
+                <a href={link.href} class="transition-colors hover:text-gold">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 flex flex-col gap-2 border-t border-parchment-light/10 pt-6 font-sans text-xs text-parchment-light/50 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {SITE_NAME}. Tous droits réservés.</p>
+      <a href="/mentions-legales" class="hover:text-gold">Mentions légales &amp; confidentialité</a>
+    </div>
+  </div>
+</footer>

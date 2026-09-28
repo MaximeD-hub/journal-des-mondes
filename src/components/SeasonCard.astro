@@ -1,0 +1,31 @@
+---
+import PlaceholderArt from './PlaceholderArt.astro';
+
+interface Props {
+  title: string;
+  episodeCount?: number;
+  href: string;
+  coverImage?: string;
+  style?: string;
+}
+
+const { title, episodeCount, href, coverImage, style } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group relative block aspect-[2/3] w-44 shrink-0 overflow-hidden rounded-md shadow-md shadow-black/30 transition-transform duration-200 hover:z-10 hover:scale-105 sm:w-56 lg:w-64"
+  style={style}
+>
+  {coverImage ? (
+    <img src={coverImage} alt="" class="h-full w-full object-cover" loading="lazy" />
+  ) : (
+    <PlaceholderArt variant="ink" class="h-full w-full" />
+  )}
+  <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink-dark/95 via-ink-dark/10 to-transparent p-3">
+    <p class="font-display text-base leading-tight text-parchment-light">{title}</p>
+    {episodeCount && (
+      <p class="font-sans text-xs text-parchment-light/60">{episodeCount} épisodes</p>
+    )}
+  </div>
+</a>

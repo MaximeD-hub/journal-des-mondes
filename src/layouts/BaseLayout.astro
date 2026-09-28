@@ -1,0 +1,52 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import { SITE_NAME } from '../consts';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Le podcast de jeu de rôle immersif, entre actual play et fiction audio.',
+  noindex = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <title>{title} — {SITE_NAME}</title>
+
+    <meta property="og:title" content={`${title} — ${SITE_NAME}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/logo-full.png" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Redirige les liens d'invitation/récupération Netlify Identity (envoyés par email)
+      // vers le panel admin, où le widget peut les traiter.
+      if (/(invite_token|recovery_token|confirmation_token)=/.test(window.location.hash)) {
+        window.location.href = '/admin-jdm-2026/' + window.location.hash;
+      }
+    </script>
+  </body>
+</html>

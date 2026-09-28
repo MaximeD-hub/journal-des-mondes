@@ -1,0 +1,86 @@
+---
+import { CONTACT_EMAIL } from '../../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Mentions légales" description="Mentions légales et politique de confidentialité du Journal des Mondes." noindex={false}>
+  <section class="bg-parchment-light px-5 py-16 sm:px-8 sm:py-20">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="font-display text-3xl text-ink sm:text-4xl">Mentions légales &amp; confidentialité</h1>
+
+      <div class="mt-10 flex flex-col gap-9 font-body text-ink/80">
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Éditeur du site</h2>
+          <p class="mt-2">
+            Le site Journal des Mondes est édité par 
+            <strong> Corentin Le Galle</strong>, contact :
+            <a href={`mailto:${CONTACT_EMAIL}`} class="underline decoration-gold decoration-2 underline-offset-4 hover:text-gold-dark">{CONTACT_EMAIL}</a>.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Hébergement</h2>
+          <p class="mt-2">
+            Le site est hébergé par Netlify, Inc. - 512 2nd Street, San Francisco, CA 94107, États-Unis.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Directeur de la publication</h2>
+          <p class="mt-2">Maxime Dubois</p>
+        </div>
+
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Propriété intellectuelle</h2>
+          <p class="mt-2">
+            L'ensemble des contenus (textes, illustrations, logo, univers de Léonia) est protégé par le droit
+            d'auteur. Toute reproduction sans autorisation est interdite.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Données personnelles</h2>
+          <p class="mt-2">
+            Le formulaire de contact collecte votre nom, votre adresse email et le contenu de votre message,
+            dans le seul but de répondre à votre demande. Ces données sont transmises via Netlify Forms et ne
+            sont ni revendues ni utilisées à des fins commerciales. Elles sont conservées le temps nécessaire
+            au traitement de votre demande. Conformément au RGPD, vous pouvez demander l'accès, la
+            rectification ou la suppression de vos données en écrivant à :
+            <a href={`mailto:${CONTACT_EMAIL}`} class="underline decoration-gold decoration-2 underline-offset-4 hover:text-gold-dark">{CONTACT_EMAIL}</a>.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Cookies</h2>
+          <p class="mt-2">
+            Ce site ne dépose aucun cookie de mesure d'audience, de publicité ou de traçage. Aucun compte
+            utilisateur n'est nécessaire pour le consulter.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Contenus et services tiers</h2>
+          <p class="mt-2">
+            Certaines pages intègrent un lecteur audio fourni par Acast, qui peut déposer ses propres cookies
+            techniques liés à la lecture. Les liens vers nos réseaux sociaux (Instagram, TikTok...) et
+            plateformes d'écoute (Spotify, YouTube...) vous redirigent vers des services soumis à leurs
+            propres politiques de confidentialité.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Responsabilité</h2>
+          <p class="mt-2">
+            Journal des Mondes ne saurait être tenu responsable des dommages directs ou indirects liés
+            à l'utilisation du site.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="font-sans text-sm font-semibold uppercase tracking-wider text-gold-dark">Droit applicable</h2>
+          <p class="mt-2">Le présent site est soumis au droit français.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,136 @@
+---
+import { getCollection } from 'astro:content';
+import BlogCard from '../components/BlogCard.astro';
+import ScrollCarousel from '../components/ScrollCarousel.astro';
+import SeasonCard from '../components/SeasonCard.astro';
+import { SITE_TAGLINE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allEpisodes = await getCollection('episodes', ({ data }) => !data.draft);
+const latestEpisode = allEpisodes.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+)[0];
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const latestPosts = allPosts
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3)
+  .map((post) => ({
+    title: post.data.title,
+    excerpt: post.data.excerpt,
+    href: `/blog/${post.id}`,
+    tag: post.data.tag,
+    coverImage: post.data.coverImage, 
+  }));
+
+const seasons = [
+  { title: 'Warhammer : Enquête au pied des montagnes', episodeCount: 7, href: '/episodes#warhammer', coverImage: '/images/uploads/poster_saisons/WARHAMMER_600x900.webp' },
+  { title: 'Au-delà des brumes : Expédition vers l\'inconnu', episodeCount: 8, href: '/episodes#au-dela-des-brumes', coverImage: '/images/uploads/poster_saisons/ADDB_600x900.webp' },
+  { title: 'Bordelune : Une nuit de mystères', episodeCount: 5, href: '/episodes#bordelune', coverImage: '/images/uploads/poster_saisons/BORDELUNE_600x900.webp' },
+  { title: 'L\'Héritage des Redmane : La lignée maudite', episodeCount: 5, href: '/episodes#heritage-des-redmane', coverImage: '/images/uploads/poster_saisons/LDR_600x900.webp' },
+  { title: 'Léonia : Le destin de la dernière Elfe', episodeCount: 18, href: '/episodes#leonia', coverImage: '/images/uploads/poster_saisons/LEONIA_600x900.webp' },
+];
+---
+
+<BaseLayout title="Accueil">
+  <!-- HERO -->
+  <section class="relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden bg-parchment px-5 py-12 text-center sm:min-h-[400px]">
+    <div class="absolute inset-0 bg-parchment bg-cover bg-center opacity-90" style="background-image: url('/textures/parchment.jpg');"></div>
+      <div class="relative mx-auto max-w-3xl">
+        <div class="mx-auto w-full max-w-md overflow-hidden" style="aspect-ratio: 1500 / 970;">
+          <img
+            src="/images/logo-square.png"
+            alt="Journal des Mondes"
+            class="h-full w-full object-cover"
+            data-reveal
+          />
+        </div>
+          <p data-reveal style="transition-delay: 120ms;" class="mx-auto mt-6 max-w-xl font-body text-xl text-ink/80 sm:text-2xl">
+            {SITE_TAGLINE}
+          </p>
+      <div data-reveal style="transition-delay: 240ms;" class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a href="#dernier-episode" class="rounded-full bg-ink px-7 py-3 font-sans text-sm font-semibold text-parchment-light transition-colors hover:bg-ink-light">
+          Écouter le dernier épisode
+        </a>
+        <a href="/a-propos" class="rounded-full border border-ink/30 px-7 py-3 font-sans text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-ink/5">
+          Découvrir le podcast
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG HIGHLIGHTS -->
+  <section class="bg-ink px-5 py-16 sm:px-8 sm:py-20">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-10 flex items-end justify-between gap-4">
+        <h2 class="font-display text-3xl text-parchment-light sm:text-4xl">Sur le blog</h2>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {latestPosts.map((post, i) => <BlogCard {...post} style={`transition-delay: ${i * 100}ms`} />)}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/blog" class="inline-block rounded-full bg-gold px-8 py-3 font-sans text-sm font-semibold text-ink-dark transition-colors hover:bg-gold-light">
+          Voir tout le blog
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEASON SELECTION (Netflix style) -->
+  <section class="relative overflow-hidden bg-gold px-5 py-16 sm:px-8 sm:py-20">
+    <div class="absolute inset-0 bg-cover bg-center opacity-90" style="background-image: url('/textures/parchment.jpg');"></div>
+    <div class="relative mx-auto max-w-6xl">
+      <h2 class="mb-8 font-display text-3xl text-ink-dark sm:text-4xl">Choisissez votre saison</h2>
+      <ScrollCarousel trackClass="-mx-5 gap-5 px-5 py-4 sm:-mx-8 sm:px-8">
+        {seasons.map((season, i) => <SeasonCard {...season} style={`transition-delay: ${i * 100}ms`} />)}
+      </ScrollCarousel>
+    </div>
+  </section>
+
+  <!-- LATEST EPISODE BANNER -->
+  <section id="dernier-episode" class="relative overflow-hidden bg-ink-dark px-5 py-16 sm:px-8 sm:py-20 scroll-mt-24">
+    <div class="mx-auto max-w-5xl overflow-hidden rounded-lg bg-ink shadow-2xl shadow-black/40">
+      <div class="grid gap-6 p-8 sm:grid-cols-[1.2fr_1fr] sm:p-12">
+        <div class="flex flex-col justify-center gap-4">
+          {latestEpisode ? (
+            <>
+              <span class="inline-flex w-fit items-center gap-2 rounded-full bg-gold/15 px-3 py-1 font-sans text-xs font-semibold uppercase tracking-wider text-gold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6">
+                  <polygon points="50,6 90,28 90,72 50,94 10,72 10,28" />
+                </svg>
+                {latestEpisode.data.chapterLabel ?? `Épisode ${latestEpisode.data.episodeNumber}`}
+              </span>
+              <h2 class="font-display text-4xl text-parchment-light sm:text-5xl">{latestEpisode.data.title}</h2>
+              <p class="font-body text-parchment-light/70">{latestEpisode.data.excerpt}</p>
+              <a
+                href={`/episodes/${latestEpisode.id}`}
+                class="mt-2 inline-block w-fit rounded-full bg-gold px-7 py-3 font-sans text-sm font-semibold text-ink-dark transition-colors hover:bg-gold-light"
+              >
+                Écouter l'épisode
+              </a>
+            </>
+          ) : (
+            <p class="font-body text-parchment-light/70">Aucun épisode publié pour le moment.</p>
+          )}
+        </div>
+        <div class="hidden sm:block">
+  {latestEpisode?.data.coverImage ? (
+    <img
+      src={latestEpisode.data.coverImage}
+      alt=""
+      class="h-full w-full rounded-md object-cover"
+      loading="lazy"
+    />
+  ) : (
+    <div class="flex h-full w-full items-center justify-center rounded-md bg-gradient-to-br from-ink-light via-ink to-ink-dark">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gold/30" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polygon points="50,6 90,28 90,72 50,94 10,72 10,28" stroke-linejoin="round" />
+        <path d="M50 6 L50 94 M10 28 L90 72 M90 28 L10 72" stroke-linejoin="round" />
+      </svg>
+    </div>
+  )}
+</div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

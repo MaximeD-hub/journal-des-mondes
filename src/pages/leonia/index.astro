@@ -1,0 +1,68 @@
+---
+import { LEONIA_DRIVE_LINK } from '../../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Léonia"
+  description="Léonia, l'univers du Journal des Mondes - et le livre de jeu de rôle en cours d'écriture."
+>
+  <!-- HERO -->
+  <section class="relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden bg-parchment px-5 py-12 text-center sm:min-h-[400px]">
+    <div class="absolute inset-0 bg-cover bg-center opacity-90" style="background-image: url('/textures/parchment.jpg');"></div>
+    <div class="relative mx-auto max-w-2xl">
+      <h1 class="font-display text-5xl text-ink sm:text-6xl">Léonia</h1>
+      <p class="mt-4 font-script text-3xl text-ink/70 sm:text-4xl">Un monde à explorer, un livre à écrire</p>
+    </div>
+  </section>
+
+  <!-- PRÉSENTATION -->
+<section class="relative overflow-hidden px-5 py-24 text-center sm:px-8 sm:py-32">
+  <div
+    class="absolute inset-0 bg-cover bg-center"
+    style="background-image: url('/images/uploads/illustration_leonia/Leonia_FOND.webp');"
+  ></div>
+  <div class="absolute inset-0 bg-ink-dark/60"></div>
+
+  <div class="relative mx-auto max-w-2xl">
+    <h2 class="font-display text-3xl text-parchment-light sm:text-4xl">L'univers</h2>
+    <div class="mt-4 flex flex-col gap-4 font-body text-parchment-light/85">
+      <p>
+        Léonia est le monde dans lequel se déroule la saison actuelle du podcast : des
+        terres façonnées par les choix de la table, où chaque chapitre laisse une trace
+        durable sur les royaumes, leurs peuples et leurs légendes.
+      </p>
+      <p>
+        C'est aussi, au-delà du podcast, un <strong>livre de jeu de rôle en cours
+        d'écriture</strong>. L'objectif : permettre à n'importe quelle table de venir
+        jouer dans cet univers, avec ses propres règles, ses propres histoires.
+      </p>
+    </div>
+  </div>
+</section>
+
+  <!-- RESSOURCES / GOOGLE DRIVE -->
+  <section class="bg-ink px-5 py-16 text-center sm:px-8 sm:py-20">
+    <div class="mx-auto max-w-xl">
+      <h2 class="font-display text-3xl text-parchment-light sm:text-4xl">Accéder aux ressources</h2>
+      <p class="mt-4 font-body text-parchment-light/70">
+        Le livre est encore en cours d'écriture. En attendant sa mise en ligne directement
+        sur le site, les documents disponibles (règles, bestiaire, cartes) sont accessibles
+        sur un espace partagé.
+      </p>
+      <a
+        href={LEONIA_DRIVE_LINK}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-8 inline-block rounded-full bg-gold px-8 py-3.5 font-sans text-sm font-semibold text-ink-dark transition-colors hover:bg-gold-light"
+      >
+        Ouvrir les ressources sur Google Drive
+      </a>
+      <p class="mt-8">
+        <a href="/episodes#leonia" class="font-sans text-sm text-parchment-light/60 underline decoration-parchment-light/30 underline-offset-4 hover:text-gold">
+          Écouter la saison Léonia sur le podcast →
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

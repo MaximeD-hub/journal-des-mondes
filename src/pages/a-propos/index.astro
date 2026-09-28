@@ -1,0 +1,63 @@
+---
+import { SITE_TAGLINE } from '../../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const galleryItems = [
+  '/images/uploads/photo_a_propos/JDM_NARRATEUR.webp',
+  '/images/uploads/photo_a_propos/JDM_CAT.webp',
+  '/images/uploads/photo_a_propos/JDM_GEO.webp',
+  '/images/uploads/photo_a_propos/JDM_LEO.webp',
+];
+---
+
+<BaseLayout title="À propos" description="Découvrez le Journal des Mondes, son créateur, et les coulisses du podcast.">
+  <!-- BANNIÈRE -->
+  <section class="relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden bg-parchment px-5 py-12 text-center sm:min-h-[400px]">
+    <div class="absolute inset-0 bg-cover bg-center opacity-90" style="background-image: url('/textures/parchment.jpg');"></div>
+    <div class="relative mx-auto max-w-2xl">
+      <h1 class="font-display text-3xl text-ink sm:text-4xl">À propos</h1>
+        <p class="mx-auto mt-3 max-w-lg font-body text-lg text-ink/80">{SITE_TAGLINE}</p>
+    </div>
+  </section>
+
+  <!-- CRÉATEUR -->
+  <section class="bg-parchment-light px-5 py-16 sm:px-8 sm:py-20">
+    <div class="mx-auto grid max-w-5xl gap-10 lg:grid-cols-2 lg:items-center">
+      <iframe class="w-full h-69 rounded-lg" src="https://www.youtube.com/embed/FCAmS0JEi-s" title="Bienvenue dans les pages du Journal des Mondes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <div>
+        <h2 class="font-display text-3xl text-ink sm:text-4xl">L'histoire derrière le micro</h2>
+        <div class="mt-4 flex flex-col gap-4 font-body text-ink/80">
+          <p>
+            Le Journal des Mondes est né d'une passion simple : raconter des histoires
+            autour d'une table, dés en main, et donner envie à d'autres de s'y asseoir aussi.
+          </p>
+          <p>
+            Derrière le micro, un meneur de jeu qui construit des mondes depuis des années,
+            d'abord pour quelques amis, puis pour tout un public. Chaque saison est pensée
+            comme un roman qu'on écrit ensemble, joueurs et auditeurs compris.
+          </p>
+          <p>
+            Léonia, l'univers actuellement à l'antenne, est aussi le premier livre de jeu de
+            rôle du créateur : une manière de prolonger l'histoire au-delà du podcast, et de
+            la mettre entre les mains de celles et ceux qui veulent la faire vivre à leur tour.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="bg-ink px-5 py-16 sm:px-8 sm:py-20">
+    <div class="mx-auto max-w-6xl">
+      <h2 class="font-display text-3xl text-parchment-light sm:text-4xl">Galerie</h2>
+      <p class="mt-2 max-w-xl font-body text-parchment-light/70">
+        Quelques images des enregistrements et des événements du Journal des Mondes.
+      </p>
+      <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {galleryItems.map((src) => (
+          <img src={src} alt="Les joueurs et le narrateur du Journal des Mondes" class="aspect-square w-full rounded-md object-cover" loading="lazy" />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
