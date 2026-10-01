@@ -4,7 +4,7 @@ export const SITE_TAGLINE =
 
 export const NAV_LINKS = [
   { label: "Blog", href: "/blog" },
-  { label: "Episodes", href: "/episodes" },
+  { label: "Saisons", href: "/episodes" },
   { label: "Le JDR Léonia", href: "/leonia" },
   { label: "A Propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },

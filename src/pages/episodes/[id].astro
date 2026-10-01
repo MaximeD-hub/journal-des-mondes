@@ -74,11 +74,12 @@ const formattedDate = new Intl.DateTimeFormat('fr-FR', {
   </section>
 
   <!-- ÉPISODE PRÉCÉDENT & SUIVANT -->
-  <section class="bg-parchment-light px-5 pb-16 text-center sm:px-8">
+<section class="bg-parchment-light px-5 pb-16 sm:px-8">
+  <div class="mx-auto flex max-w-3xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
     {previous ? (
       <a
         href={`/episodes/${previous.id}`}
-        class="inline-block rounded-full border border-ink/20 px-7 py-3 font-sans text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-ink/5"
+        class="inline-block rounded-full border border-ink/20 px-7 py-3 text-center font-sans text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-ink/5"
       >
         ← Épisode précédent : {previous.data.title}
       </a>
@@ -88,12 +89,13 @@ const formattedDate = new Intl.DateTimeFormat('fr-FR', {
     {next ? (
       <a
         href={`/episodes/${next.id}`}
-        class="inline-block rounded-full border border-ink/20 px-7 py-3 font-sans text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-ink/5"
+        class="inline-block rounded-full border border-ink/20 px-7 py-3 text-center font-sans text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-ink/5"
       >
         Épisode suivant : {next.data.title} →
       </a>
     ) : (
       <p class="font-sans text-sm text-ink/50">C'est le dernier épisode publié.</p>
     )}
-  </section>
+  </div>
+</section>
 </BaseLayout>

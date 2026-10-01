@@ -24,6 +24,10 @@ const seasons = Array.from(bySeasonMap.entries())
   }))
   .sort((a, b) => b.latestDate - a.latestDate);
 
+// Noms exacts des saisons actuellement en cours (toutes les autres sont considérées terminées).
+// À mettre à jour quand une saison se termine ou qu'une nouvelle démarre.
+const ONGOING_SEASONS = ['Léonia'];
+
 function slugify(str: string) {
   return str
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -64,8 +68,17 @@ function slugify(str: string) {
     <div class="mx-auto flex max-w-6xl flex-col gap-12" id="season-rows">
       {seasons.map((season) => (
         <div id={slugify(season.name)} class="season-row scroll-mt-24" data-season={season.name.toLowerCase()}>
-          <h2 class="mb-4 font-display text-2xl text-parchment-light">
+          <h2 class="mb-4 flex flex-wrap items-center gap-3 font-display text-2xl text-parchment-light">
             {season.name}
+            {ONGOING_SEASONS.includes(season.name) ? (
+              <span class="rounded-full bg-gold/15 px-3 py-1 font-sans text-xs font-semibold uppercase tracking-wider text-gold">
+                En cours
+              </span>
+            ) : (
+              <span class="rounded-full bg-parchment-light/10 px-3 py-1 font-sans text-xs font-semibold uppercase tracking-wider text-parchment-light/50">
+                Terminée
+              </span>
+            )}  
           </h2>
           <ScrollCarousel trackClass="-mx-5 gap-4 px-5 py-2 sm:-mx-8 sm:px-8">
             {season.episodes.map((ep) => (
