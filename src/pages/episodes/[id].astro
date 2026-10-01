@@ -81,7 +81,7 @@ const formattedDate = new Intl.DateTimeFormat('fr-FR', {
         href={`/episodes/${previous.id}`}
         class="inline-block rounded-full border border-ink/20 px-7 py-3 text-center font-sans text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-ink/5"
       >
-        ← Épisode précédent : {previous.data.title}
+        ← Épisode précédent : {previous.data.season} - {previous.data.chapterLabel}
       </a>
     ) : (
       <p class="font-sans text-sm text-ink/50">C'est le tout premier épisode publié.</p>
@@ -91,7 +91,7 @@ const formattedDate = new Intl.DateTimeFormat('fr-FR', {
         href={`/episodes/${next.id}`}
         class="inline-block rounded-full border border-ink/20 px-7 py-3 text-center font-sans text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-ink/5"
       >
-        Épisode suivant : {next.data.title} →
+        Épisode suivant : {next.data.season} - {next.data.chapterLabel} →
       </a>
     ) : (
       <p class="font-sans text-sm text-ink/50">C'est le dernier épisode publié.</p>

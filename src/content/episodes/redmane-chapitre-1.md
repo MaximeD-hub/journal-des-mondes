@@ -1,6 +1,6 @@
 ---
 title: "La lignée maudite"
-season: "L'Héritage des Redmane"
+season: "L'héritage des Redmane"
 episodeNumber: 2
 chapterLabel: "Chapitre 1"
 publishDate: 2024-10-20

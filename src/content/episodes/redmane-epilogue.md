@@ -1,6 +1,6 @@
 ---
 title: "Epilogue"
-season: "L'Héritage des Redmane"
+season: "L'héritage des Redmane"
 episodeNumber: 5
 chapterLabel: "Epilogue"
 publishDate: 2024-11-03

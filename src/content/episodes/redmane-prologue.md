@@ -1,6 +1,6 @@
 ---
 title: "Une plongée dans l'horreur"
-season: "L'Héritage des Redmane"
+season: "L'héritage des Redmane"
 episodeNumber: 1
 chapterLabel: "Prologue"
 publishDate: 2024-10-20

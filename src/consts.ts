@@ -6,7 +6,7 @@ export const NAV_LINKS = [
   { label: "Blog", href: "/blog" },
   { label: "Saisons", href: "/episodes" },
   { label: "Le JDR Léonia", href: "/leonia" },
-  { label: "A Propos", href: "/a-propos" },
+  { label: "À propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -24,7 +24,6 @@ export const FOOTER_SOMMAIRE = [
 ];
 
 export const LISTEN_LINKS = [
-  { label: "YouTube", href: "https://www.youtube.com/@JournaldesMondesJDR" },
   {
     label: "Spotify",
     href: "https://open.spotify.com/show/5ROLqHIaws5UVEsYV3DtBA?si=4f7ee8ee72d240a5",
@@ -34,6 +33,7 @@ export const LISTEN_LINKS = [
     label: "Apple Podcast",
     href: "https://podcasts.apple.com/gb/podcast/journal-des-mondes-jdr-immersif/id1662260282",
   },
+  { label: "YouTube", href: "https://www.youtube.com/@JournaldesMondesJDR" },
 ];
 
 export const CONTACT_EMAIL = "journaldesmondes@gmail.com";

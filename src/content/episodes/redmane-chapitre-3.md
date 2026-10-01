@@ -1,6 +1,6 @@
 ---
 title: "Le monde de l'éveil"
-season: "L'Héritage des Redmane"
+season: "L'héritage des Redmane"
 episodeNumber: 4
 chapterLabel: "Chapitre 3"
 publishDate: 2024-11-03

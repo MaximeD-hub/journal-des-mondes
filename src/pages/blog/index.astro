@@ -22,7 +22,7 @@ const tags = ['JDR', 'Podcast', 'Léonia', 'Event'];
       <button
         type="button"
         data-tag="all"
-        class="tag-btn is-active rounded-full border border-gold bg-gold px-4 py-1.5 font-sans text-sm font-medium text-ink-dark transition-colors"
+        class="tag-btn is-active rounded-full border border-ink bg-ink px-4 py-1.5 font-sans text-sm font-medium text-gold"
       >
         Tous
       </button>
@@ -30,7 +30,7 @@ const tags = ['JDR', 'Podcast', 'Léonia', 'Event'];
         <button
           type="button"
           data-tag={tag.toLowerCase()}
-          class="tag-btn rounded-full border border-ink/25 px-4 py-1.5 font-sans text-sm font-medium text-ink/70 transition-colors hover:border-gold hover:text-gold-dark"
+          class="tag-btn rounded-full border border-ink/25 px-4 py-1.5 font-sans text-sm font-medium text-ink/70 hover:border-gold hover:text-gold-dark"
         >
           {tag}
         </button>
@@ -110,9 +110,9 @@ const tags = ['JDR', 'Podcast', 'Léonia', 'Event'];
       tagButtons.forEach((b) => {
         const isActive = b === btn;
         b.classList.toggle('is-active', isActive);
-        b.classList.toggle('bg-gold', isActive);
-        b.classList.toggle('border-gold', isActive);
-        b.classList.toggle('text-ink-dark', isActive);
+        b.classList.toggle('bg-ink', isActive);
+        b.classList.toggle('border-ink', isActive);
+        b.classList.toggle('text-gold', isActive);
         b.classList.toggle('text-ink/70', !isActive);
       });
       applyFilters();

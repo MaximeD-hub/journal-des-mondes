@@ -1,6 +1,6 @@
 ---
 title: "Micmacs au cimetière"
-season: "L'Héritage des Redmane"
+season: "L'héritage des Redmane"
 episodeNumber: 3
 chapterLabel: "Chapitre 2"
 publishDate: 2024-10-27
