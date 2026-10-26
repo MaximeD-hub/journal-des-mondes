@@ -17,89 +17,40 @@
   --color-parchment-light: #f7f0dc;
   --color-parchment-dark: #e6d6b2;
 
-  --font-display: "Sacred Bridge", serif;
-  --font-display-rough: "Sacred Bridge Rough", serif;
-  --font-script: "Jane Austen", cursive;
-  --font-body: "Cormorant Garamond", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-display: "Lexend", sans-serif;
+  --font-body: "Lexend", sans-serif;
+  --font-sans: "Lexend", sans-serif;
+  --font-script: "Lexend", sans-serif;
 }
 
 @font-face {
-  font-family: "Sacred Bridge";
-  src: url("/fonts/SacredBridge-Regular.otf") format("opentype");
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-Regular-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Sacred Bridge Rough";
-  src: url("/fonts/SacredBridge-Rough.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Jane Austen";
-  src: url("/fonts/JaneAust.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cormorant Garamond";
-  src: url("/fonts/cormorant-garamond-v21-latin-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cormorant Garamond";
-  src: url("/fonts/cormorant-garamond-v21-latin-500.woff2") format("woff2");
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-Medium-500.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Cormorant Garamond";
-  src: url("/fonts/cormorant-garamond-v21-latin-600.woff2") format("woff2");
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-SemiBold-600.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Cormorant Garamond";
-  src: url("/fonts/cormorant-garamond-v21-latin-italic.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-500.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-600.woff2") format("woff2");
-  font-weight: 600;
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-Bold-700.woff2") format("woff2");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -127,15 +78,14 @@
   }
 
   body {
-    @apply bg-parchment-light text-ink font-body font-medium text-lg leading-relaxed;
+    @apply bg-parchment-light text-ink font-body font-normal text-base leading-relaxed;
   }
 
   h1,
   h2,
   h3,
   .font-display {
-    @apply font-display;
-    letter-spacing: 0.01em;
+    @apply font-display font-bold;
   }
 
   :focus-visible {

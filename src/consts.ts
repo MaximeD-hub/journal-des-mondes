@@ -4,7 +4,7 @@ export const SITE_TAGLINE =
 
 export const NAV_LINKS = [
   { label: "Blog", href: "/blog" },
-  { label: "Saisons", href: "/episodes" },
+  { label: "Les pages", href: "/episodes" },
   { label: "Le JDR Léonia", href: "/leonia" },
   { label: "A Propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },
@@ -17,7 +17,7 @@ export const SUPPORT_LINK = {
 
 export const FOOTER_SOMMAIRE = [
   { label: "Blog", href: "/blog" },
-  { label: "Episodes", href: "/episodes" },
+  { label: "Les pages", href: "/episodes" },
   { label: "Le JDR Léonia", href: "/leonia" },
   { label: "A propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },
@@ -38,7 +38,7 @@ export const LISTEN_LINKS = [
 
 export const CONTACT_EMAIL = "journaldesmondes@gmail.com";
 export const LEONIA_DRIVE_LINK =
-  "https://drive.google.com/drive/folders/REMPLACER-PAR-LE-VRAI-LIEN";
+  "https://drive.google.com/drive/folders/1CkVYyadL9aBY0hhjUtGMUB6XfgB02ece";
 
 export const SOCIAL_LINKS = [
   { label: "Instagram", href: "https://www.instagram.com/journaldesmondes" },
