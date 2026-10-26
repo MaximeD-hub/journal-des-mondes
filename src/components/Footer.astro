@@ -26,7 +26,14 @@ const columns = [
           <ul class="mt-4 flex flex-col gap-2.5 font-sans text-sm text-parchment-light/80">
             {col.links.map((link) => (
               <li>
-                <a href={link.href} class="transition-colors hover:text-gold">{link.label}</a>
+                <a
+                  href={link.href}
+                  class="transition-colors hover:text-gold"
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                >
+                  {link.label}
+                </a>
               </li>
             ))}
           </ul>
