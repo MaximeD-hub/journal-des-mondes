@@ -1,6 +1,6 @@
 ---
 title: Un nouvel espace !
-excerpt: Le site du Journal voit le jour aujourdhui !
+excerpt: Le site du Journal voit le jour !
 tag: Event
 publishDate: 2026-10-28T14:57:00.000+01:00
 coverImage: /images/uploads/logo_journaldesmondes_2026_plan-de-travail-1-copie-3.webp
