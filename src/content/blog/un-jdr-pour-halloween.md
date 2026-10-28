@@ -1,7 +1,7 @@
 ---
-title: Un JDR pour Halloween !
+title: Un JDR d'Halloween !
 excerpt: Nous sommes invités par le Mimic Festival, ce samedi 31 octobre, pour
-  du JDR en direct !
+  faire du JDR en direct !
 tag: Event
 publishDate: 2026-10-28T15:12:00.000+01:00
 coverImage: /images/uploads/1080-jdm_décors_halloween.webp
