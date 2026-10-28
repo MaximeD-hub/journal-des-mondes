@@ -4,7 +4,7 @@ excerpt: Nous sommes invités par le Mimic Festival, ce samedi 31 octobre, pour
   du JDR en direct !
 tag: Event
 publishDate: 2026-10-28T15:12:00.000+01:00
-coverImage: /images/uploads/jdm_décors_halloween.webp
+coverImage: /images/uploads/1080-jdm_décors_halloween.webp
 draft: false
 ---
 Ce samedi 31 octobre nous serons à Angoulême (un peu loin de chez nous), pour faire du JDR devant vous, devant public, en collaboration avec de fabuleux créateurs !
