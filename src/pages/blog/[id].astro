@@ -33,7 +33,9 @@ const formattedDate = new Intl.DateTimeFormat('fr-FR', {
     </header>
 
     {coverImage ? (
-  <img src={coverImage} alt="" class="mx-auto aspect-[21/9] w-full max-w-5xl object-cover sm:rounded-lg" loading="lazy" />
+  <div class="mx-auto max-w-5xl py-6 sm:py-8">
+  <img src={coverImage} alt="" class="mx-auto h-auto max-h-[28rem] w-auto max-w-full sm:rounded-lg" loading="lazy" />
+</div>
 ) : (
   <PlaceholderArt variant="parchment" class="mx-auto aspect-[21/9] w-full max-w-5xl sm:rounded-lg" />
 )}
